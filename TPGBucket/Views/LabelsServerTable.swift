@@ -9,7 +9,15 @@ import SwiftUI
 
 struct LabelsServerTable: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Text("Server name   ")
+            Spacer()
+            Text("Bar          ")
+            Spacer()
+            Text("Tip        ")
+        }
+        .font(.subheadline.bold())
+        .foregroundStyle(.blue)
     }
 }
 

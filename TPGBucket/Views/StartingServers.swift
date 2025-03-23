@@ -7,12 +7,27 @@
 
 import SwiftUI
 
+
 struct StartingServers: View {
+    
+    @ObservedObject var bucketViewModel: BucketViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Section("Bucket") {
+            Stepper(value: $bucketViewModel.numberOfServers, onEditingChanged: { _ in
+                bucketViewModel.adjustServerArrays()
+            }) {
+                HStack {
+                    Text("Starting servers:")
+                        .bold()
+                    Text("\(bucketViewModel.numberOfServers)")
+                        .padding(.leading, 5)
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    StartingServers()
+    StartingServers(bucketViewModel: BucketViewModel())
 }
