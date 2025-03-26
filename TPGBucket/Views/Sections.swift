@@ -1,14 +1,13 @@
 import SwiftUI
 
 struct Sections: View {
+    @EnvironmentObject private var vm: BucketViewModel
     
-    @ObservedObject var bucketViewModel: BucketViewModel
-    
-    private var formattedTotalBar: String { bucketViewModel.totalBar.formattedToTwoDecimals() }
-    private var formattedBarTipOut: String { bucketViewModel.barTipOut.formattedToTwoDecimals() }
-    private var formattedTotalTip: String { bucketViewModel.totalTip.formattedToTwoDecimals() }
-    private var formattedTotalTipWithTipOut: String { bucketViewModel.totalTipWithTipOut.formattedToTwoDecimals() }
-    private var formattedPiles: String { bucketViewModel.piles.formattedToTwoDecimals() }
+    private var formattedTotalBar: String { vm.totalBar.formattedToTwoDecimals() }
+    private var formattedBarTipOut: String { vm.barTipOut.formattedToTwoDecimals() }
+    private var formattedTotalTip: String { vm.totalTip.formattedToTwoDecimals() }
+    private var formattedTotalTipWithTipOut: String { vm.totalTipWithTipOut.formattedToTwoDecimals() }
+    private var formattedPiles: String { vm.piles.formattedToTwoDecimals() }
     
     var body: some View {
         Group {
@@ -24,7 +23,7 @@ struct Sections: View {
     
     private var tipOutSection: some View {
         Section(header: Text("Busser")) {
-            TextField("Type in busser tip out here", value: $bucketViewModel.busserTipOut, format: .number)
+            TextField("Type in busser tip out here", value: $vm.busserTipOut, format: .number)
         }
     }
     
@@ -44,7 +43,7 @@ struct Sections: View {
     
     private var moneyOnTableSection: some View {
         Section(header: Text("Money on Table")) {
-            TextField("Money on table", value: $bucketViewModel.moneyOnTable, format: .number)
+            TextField("Money on table", value: $vm.moneyOnTable, format: .number)
         }
     }
     
@@ -56,13 +55,14 @@ struct Sections: View {
     
     private var pilesSection: some View {
         Section(header: Text("Piles")) {
-            Text("\(bucketViewModel.numberOfServers) piles of \(formattedPiles)")
+            Text("\(vm.numberOfServers) piles of \(formattedPiles)")
         }
     }
 }
 
 #Preview {
-    Form {
-        Sections(bucketViewModel: BucketViewModel())
+    List {
+        Sections()
+            .environmentObject(BucketViewModel())
     }
 }

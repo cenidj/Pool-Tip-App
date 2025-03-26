@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject private var bucketViewModel: BucketViewModel
+    @EnvironmentObject private var vm: BucketViewModel
     
     var body: some View {
         VStack {
             List {
-                StartingServers(bucketViewModel: _bucketViewModel)
+                StartingServers(vm: _vm)
                 
-                if bucketViewModel.numberOfServers == 0 {
+                if vm.numberOfServers == 0 {
                     Section("Use the stepper above to add servers.") { }
                 } else {
-                    LabelsServerTable()
-                    ServersTable(bucketViewModel: bucketViewModel)
-                    Sections(bucketViewModel: bucketViewModel)
+                    ServersTable()
+                    Sections()
                 }
             }
         }
