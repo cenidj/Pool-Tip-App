@@ -33,8 +33,8 @@ class BucketViewModel: ObservableObject {
     }
     
     // TODO: Change to full share and get docks before makes piles.
-    var piles: Int {
-        Int(moneyOnTable / Float(numberOfServers))
+    var piles: Float {
+        moneyOnTable / Float(numberOfServers)
     }
     
     // Helper function to match array sizes

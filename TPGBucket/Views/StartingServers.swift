@@ -10,11 +10,11 @@ import SwiftUI
 
 struct StartingServers: View {
     
-    @ObservedObject var bucketViewModel: BucketViewModel
+    @EnvironmentObject var bucketViewModel: BucketViewModel
     
     var body: some View {
         Section("Bucket") {
-            Stepper(value: $bucketViewModel.numberOfServers, onEditingChanged: { _ in
+            Stepper(value: $bucketViewModel.numberOfServers, in: 0...20, step: 1, onEditingChanged: { _ in
                 bucketViewModel.adjustServerArrays()
             }) {
                 HStack {
@@ -29,5 +29,6 @@ struct StartingServers: View {
 }
 
 #Preview {
-    StartingServers(bucketViewModel: BucketViewModel())
+    StartingServers()
+        .environmentObject(BucketViewModel())
 }
